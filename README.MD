@@ -15,9 +15,15 @@ Muito resumidamente, baseado em converter o problema do cliente em algo pautáve
 
 - Serviços e Módulos: Identificar serviços e módulos no sistema que encapsulem funcionalidades específicas relacionadas ao domínio.
 
+## Desafio do projeto:
+- Um professor tem dificuldade em saber a dúvida dos alunos
+- Tem que responder os alunos e se perde em quais dúvidas já foram respondidas
+
 ## Visualização:
 
 ``` 
 src
-|__domain
+├─ Domain
+│  ├─ Entities
+│  └─ Use-Cases
 ```
