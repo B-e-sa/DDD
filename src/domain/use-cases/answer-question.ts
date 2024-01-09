@@ -3,8 +3,8 @@ import { Answer } from "../entities/answer"
 import { AnswersRepository } from "../repositories/answers-repository"
 
 interface AnswerQuestionUseCaseRequest {
-    instructorId: UniqueEntityId
-    questionId: UniqueEntityId
+    teacherId: string
+    questionId: string
     content: string
 }
 
@@ -14,13 +14,16 @@ export class AnswerQuestionUseCase {
     ) { }
 
     execute({
-        instructorId,
+        teacherId,
         questionId,
         content,
     }: AnswerQuestionUseCaseRequest) {
-        // const answer = new Answer({
-        // })
+        const answer = Answer.create({
+            content,
+            authorId: new UniqueEntityId(teacherId),
+            questionId: new UniqueEntityId(questionId)
+        })
 
-        return //answer;
+        return answer
     }
 }
