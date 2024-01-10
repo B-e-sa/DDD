@@ -23,7 +23,11 @@ Muito resumidamente, baseado em converter o problema do cliente em algo pautáve
 
 ``` 
 src
-├─ Domain
-│  ├─ Entities
-│  └─ Use-Cases
+├─ core
+│  ├─ entities
+|  └─ types
+├─ domain
+│  ├─ entities
+|  ├─ repositories
+│  └─ use-cases
 ```
