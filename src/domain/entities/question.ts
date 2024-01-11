@@ -11,6 +11,7 @@ interface QuestionProps {
     bestAnswerId?: UniqueEntityId
     authorId: UniqueEntityId
     createdAt: Date
+    updatedAt: Date
 }
 
 export class Question extends Entity<QuestionProps> {
@@ -40,6 +41,16 @@ export class Question extends Entity<QuestionProps> {
 
     get isNew(): boolean {
         return dayjs().diff(this.createdAt, 'days') < 3
+    }
+
+    private touch() {
+        this.props.updatedAt = new Date();
+    }
+
+    set title(title: string) {
+        this.props.title = title
+        this.props.slug = Slug.createFromText(title)
+        this.touch()
     }
 
     static create(props: Optional<QuestionProps, 'createdAt'>, id?: UniqueEntityId) {
