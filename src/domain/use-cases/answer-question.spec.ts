@@ -1,4 +1,3 @@
-import { test, expect } from 'vitest'
 import { AnswerQuestionUseCase } from './answer-question'
 import { Answer } from '../entities/answer'
 import { AnswersRepository } from '../repositories/answers-repository';
@@ -16,7 +15,7 @@ test('create an answer', async () => {
 
     const answer = answerQuestion.execute({
         content: "Resposta",
-        instructorId: "1",
+        teacherId: "1",
         questionId: "1"
     })
 
