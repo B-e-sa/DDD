@@ -11,8 +11,17 @@ interface AnswerProps {
 }
 
 export class Answer extends Entity<AnswerProps> {
+  private touch() {
+    this.props.updatedAt = new Date()
+  }
+
   get content() {
     return this.props.content
+  }
+
+  set content(content: string) {
+    this.props.content = content
+    this.touch()
   }
 
   get authorId() {
@@ -29,15 +38,6 @@ export class Answer extends Entity<AnswerProps> {
 
   get except() {
     return this.content.substring(0, 120).trimEnd().concat('...')
-  }
-
-  private touch() {
-    this.props.updatedAt = new Date()
-  }
-
-  set content(content: string) {
-    this.props.content = content
-    this.touch()
   }
 
   static create(
