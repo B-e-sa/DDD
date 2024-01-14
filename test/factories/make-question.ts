@@ -1,0 +1,36 @@
+import { UniqueEntityId } from "@/core/entities/unique-entity-id";
+import { Question, QuestionProps } from "@/domain/forum/enterprise/entities/question";
+import { Slug } from "@/domain/forum/enterprise/entities/value-objects/slug";
+
+/**
+ * 
+ * @description Creates a new Question entity
+ * 
+ * @returns
+ * ```typescript
+ * Question.create({
+ *  authorId: new UniqueEntityId(),
+ *       title: "Example Slug",
+ *       slug: Slug.create("example-slug"),
+ *       content: "Some content"
+ * })
+ * ```
+ * 
+ * @example
+ * ```typescript
+ * const question = makeQuestion()
+ * ```
+ */
+export function makeQuestion(
+    override: Partial<QuestionProps> = {}
+) {
+    const question = Question.create({
+        authorId: new UniqueEntityId(),
+        title: "Example Slug",
+        slug: Slug.create("example-slug"),
+        content: "Some content",
+        ...override
+    })
+
+    return question
+}

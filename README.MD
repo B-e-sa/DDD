@@ -21,13 +21,16 @@ Muito resumidamente, baseado em converter o problema do cliente em algo pautáve
 
 ## Visualização:
 
-``` 
+```
 src
 ├─ core
-│  ├─ entities
-|  └─ types
-├─ domain
-│  ├─ entities
-|  ├─ repositories
-│  └─ use-cases
+│  ├─ entities        # códigos reutilizáveis principais
+|  └─ types           # tipos reutilizáveis principais
+├─ domain 
+|  └─ forum           # nome de um subdomínio da aplicação
+│  |  ├─ application  # regras de negócio da APLICAÇÃO
+|  |  └─ enterprise   # regras de negócio da EMPRESA
+├─ test
+│  ├─ factories       # criação de entidade flexível (SOMENTE para testes)
+│  └─ repositories    # repositórios de teste
 ```

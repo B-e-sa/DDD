@@ -12,11 +12,11 @@ describe("Create Answer", () => {
 
     it('should be able to create an answer', async () => {
         const { answer } = await sut.execute({
-            content: 'Resposta',
+            content: 'Response',
             teacherId: '1',
             questionId: 'New Title',
         })
 
-        expect(answer.content).toEqual('Resposta')
+        expect(answer.content).toEqual('Response')
     })
 })

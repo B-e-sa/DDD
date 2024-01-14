@@ -1,5 +1,5 @@
 /**
- * Make some property optional on type
+ * @description Make some property optional on type
  *
  * @example
  * ```typescript
