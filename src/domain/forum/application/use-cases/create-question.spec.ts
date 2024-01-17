@@ -5,23 +5,22 @@ let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: CreateQuestionUseCase
 
 describe('Create Question', () => {
-    beforeEach(() => {
-        inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
-        sut = new CreateQuestionUseCase(
-            inMemoryQuestionsRepository
-        )
+  beforeEach(() => {
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
+    sut = new CreateQuestionUseCase(inMemoryQuestionsRepository)
+  })
+
+  it('should be able to create question', async () => {
+    const { question } = await sut.execute({
+      authorId: '1',
+      content: '1',
+      title: 'New Title',
     })
 
-    it('should be able to create question', async () => {
-        const { question } = await sut.execute({
-            authorId: '1',
-            content: '1',
-            title: 'New Title',
-        })
+    expect(question.id).toBeTruthy()
 
-        expect(question.id).toBeTruthy()
-        expect(
-            inMemoryQuestionsRepository.Items[0].id
-        ).toEqual(question.id)
-    })
+    const inMemoryQuestion = inMemoryQuestionsRepository.Items[0].id
+
+    expect(inMemoryQuestion).toEqual(question.id)
+  })
 })
