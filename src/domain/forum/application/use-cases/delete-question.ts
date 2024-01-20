@@ -19,10 +19,12 @@ export class DeleteQuestionUseCase {
     }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
         const question = await this.questionsRepository.findById(id)
 
+        if (!question) throw new Error('Question not found')
+
         if(authorId !== question?.authorId.toString())
             throw new Error('Not the question author')
 
-        if (!question) throw new Error('Question not found')
+        await this.questionsRepository.delete(question)
 
         return {
             question,

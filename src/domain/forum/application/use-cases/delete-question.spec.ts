@@ -1,6 +1,5 @@
 import { makeQuestion } from "test/factories/make-question"
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository"
-import { GetQuestionBySlugUseCase } from "./get-question-by-slug"
 import { DeleteQuestionUseCase } from "./delete-question"
 import { UniqueEntityId } from "@/core/entities/unique-entity-id"
 
@@ -13,7 +12,7 @@ describe("Delete Question", () => {
         sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository)
     })
 
-    it("can delete question", async () => {
+    it("can be deleted by the author", async () => {
         const newQuestion = makeQuestion()
 
         inMemoryQuestionsRepository.create(newQuestion)
@@ -26,20 +25,18 @@ describe("Delete Question", () => {
         expect(inMemoryQuestionsRepository.Items).toHaveLength(0)
     })
 
-    it("should only be deleted by the author", async () => {
-        const newQuestion = makeQuestion({
-            authorId: new UniqueEntityId('author-1')
-        })
+    it("can't be deleted by other user", async () => {
+        const newQuestion = makeQuestion()
 
         await inMemoryQuestionsRepository.create(newQuestion)
 
         expect(() => {
             return sut.execute({
-                id: 'question-1',
-                authorId: 'author-2'
+                id: newQuestion.id.toString(),
+                authorId: new UniqueEntityId().toString()
             })
         })
-
-        expect(inMemoryQuestionsRepository.Items).toHaveLength(0)
+            .rejects
+            .toBeInstanceOf(Error)
     })
 })
