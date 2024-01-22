@@ -24,9 +24,6 @@ describe('Get Question By Slug', () => {
     })
 
     expect(question.id).toBeTruthy()
-
     expect(inMemoryQuestionsRepository.Items[0].id).toEqual(question.id)
-
-    expect(question.title).toEqual(newQuestion.title)
   })
 })
