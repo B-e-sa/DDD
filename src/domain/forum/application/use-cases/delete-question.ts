@@ -21,7 +21,7 @@ export class DeleteQuestionUseCase {
 
         if (!question) throw new Error('Question not found')
 
-        if(authorId !== question?.authorId.toString())
+        if(authorId !== question.authorId.toString())
             throw new Error('Not the question author')
 
         await this.questionsRepository.delete(question)
