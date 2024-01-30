@@ -9,6 +9,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
             item.id === answer.id
         ))
 
+        if (answerIndex === -1) return null
+
         const deletedAnswer = this.Items[answerIndex]
 
         this.Items.splice(answerIndex, 1)
@@ -16,12 +18,22 @@ export class InMemoryAnswersRepository implements AnswersRepository {
         return deletedAnswer
     }
 
+    async update(answer: Answer): Promise<Answer | null> {
+        const answerIndex = this.Items.findIndex(item => (
+            item.id === answer.id
+        ))
+
+        if (!answerIndex) return null
+
+        return this.Items[answerIndex] = answer
+    }
+
     async findById(id: string): Promise<Answer | null> {
         const foundAnswer = this.Items.find(item => (
             item.id.toString() === id
         ))
 
-        if(!foundAnswer) return null
+        if (!foundAnswer) return null
 
         return foundAnswer
     }

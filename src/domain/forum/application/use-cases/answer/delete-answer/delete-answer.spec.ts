@@ -18,7 +18,7 @@ describe('Delete Question', () => {
     inMemoryAnswersRepository.create(answer)
 
     await sut.execute({
-      id: answer.id.toString(),
+      answerId: answer.id.toString(),
       authorId: answer.authorId.toString(),
     })
 
@@ -32,7 +32,7 @@ describe('Delete Question', () => {
 
     expect(async () => {
       return await sut.execute({
-        id: answer.id.toString(),
+        answerId: answer.id.toString(),
         authorId: new UniqueEntityId().toString(),
       })
     }).rejects.toBeInstanceOf(Error)

@@ -1,8 +1,8 @@
-import { Answer } from '../../enterprise/entities/answer'
-import { AnswersRepository } from '../repositories/answers-repository'
+import { Answer } from '../../../../enterprise/entities/answer'
+import { AnswersRepository } from '../../../repositories/answers-repository'
 
 interface DeleteAnswerUseCaseRequest {
-  id: string
+  answerId: string
   authorId: string
 }
 
@@ -14,10 +14,10 @@ export class DeleteAnswerUseCase {
   constructor(private answerRepository: AnswersRepository) { }
 
   async execute({
-    id,
+    answerId,
     authorId,
   }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse | null> {
-    const answer = await this.answerRepository.findById(id)
+    const answer = await this.answerRepository.findById(answerId)
 
     if (!answer) throw new Error('Answer not found')
 

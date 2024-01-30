@@ -25,6 +25,8 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
             item.id === question.id
         ))
 
+        if(questionIndex === -1) return null
+
         const deletedQuestion = this.Items[questionIndex]
 
         this.Items.splice(questionIndex, 1)
