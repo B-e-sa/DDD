@@ -33,6 +33,11 @@ export class Question extends Entity<QuestionProps> {
     return this.props.content
   }
 
+  set content(content: string) {
+    this.props.content = content
+    this.touch()
+  }
+
   get slug() {
     return this.props.slug
   }

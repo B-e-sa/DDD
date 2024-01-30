@@ -10,7 +10,7 @@ interface GetQuestionBySlugUseCaseResponse {
 }
 
 export class GetQuestionBySlugUseCase {
-  constructor(private questionsRepository: QuestionsRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) { }
 
   async execute({
     slug,
@@ -19,8 +19,6 @@ export class GetQuestionBySlugUseCase {
 
     if (!question) throw new Error('Question not found')
 
-    return {
-      question,
-    }
+    return { question }
   }
 }

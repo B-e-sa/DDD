@@ -11,7 +11,7 @@ interface DeleteAnswerUseCaseResponse {
 }
 
 export class DeleteAnswerUseCase {
-  constructor(private answerRepository: AnswersRepository) {}
+  constructor(private answerRepository: AnswersRepository) { }
 
   async execute({
     id,
@@ -26,8 +26,6 @@ export class DeleteAnswerUseCase {
 
     await this.answerRepository.delete(answer)
 
-    return {
-      answer,
-    }
+    return { answer }
   }
 }
