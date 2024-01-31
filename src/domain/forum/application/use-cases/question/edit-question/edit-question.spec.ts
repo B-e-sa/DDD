@@ -6,7 +6,7 @@ import { EditQuestionUseCase } from './edit-question'
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: EditQuestionUseCase
 
-describe('Delete Question', () => {
+describe('Edit question', () => {
   beforeAll(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     sut = new EditQuestionUseCase(inMemoryQuestionsRepository)
