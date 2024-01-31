@@ -6,4 +6,5 @@ export interface QuestionsRepository {
   delete(question: Question): Promise<Question | null>
   findById(id: string): Promise<Question | null>
   findBySlug(slug: string): Promise<Question | null>
+  findManyRecent(page: number): Promise<Question[]>
 }
