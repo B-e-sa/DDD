@@ -10,6 +10,16 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
         return question
     }
 
+    async findManyRecent(page: number): Promise<Question[]> {
+        const questions = this.Items
+            .sort((a, b) => (
+                b.createdAt.getTime() - a.createdAt.getTime()
+            ))
+            .slice((page - 1) * 20, page * 20)
+
+        return questions
+    }
+
     async update(question: Question): Promise<Question | null> {
         const questionIndex = this.Items.findIndex(item => (
             item.id === question.id
@@ -25,7 +35,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
             item.id === question.id
         ))
 
-        if(questionIndex === -1) return null
+        if (questionIndex === -1) return null
 
         const deletedQuestion = this.Items[questionIndex]
 

@@ -30,8 +30,11 @@ export function makeQuestion(
         title: faker.lorem.sentence(),
         content: faker.lorem.text(),
         slug: Slug.create("example-slug"),
+        createdAt: new Date(),
         ...override
     })
+
+    console.log(question.createdAt)
 
     return question
 }
