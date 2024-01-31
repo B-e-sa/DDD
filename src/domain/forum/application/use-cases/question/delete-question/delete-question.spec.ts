@@ -35,6 +35,6 @@ describe('Delete Question', () => {
         id: newQuestion.id.toString(),
         authorId: new UniqueEntityId().toString(),
       })
-    }).rejects.toBeInstanceOf(Error)
+    }).rejects.toThrowError(Error)
   })
 })

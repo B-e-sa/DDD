@@ -24,6 +24,10 @@ export class Answer extends Entity<AnswerProps> {
     this.touch()
   }
 
+  get questionId() {
+    return this.props.questionId
+  }
+
   get authorId() {
     return this.props.authorId
   }
