@@ -5,4 +5,5 @@ export interface AnswersRepository {
   update(answer: Answer): Promise<Answer | null>
   delete(answer: Answer): Promise<Answer | null>
   findById(id: string): Promise<Answer | null>
+  findManyByQuestionId(questionId: string): Promise<Answer[]>
 }
