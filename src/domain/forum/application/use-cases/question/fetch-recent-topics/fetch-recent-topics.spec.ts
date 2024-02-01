@@ -14,7 +14,7 @@ describe('Fetch recent topics', () => {
     it('can fetch recent questions', async () => {
         const questionsToMatch = []
 
-        for (const _ of Array(2)) {
+        for (const _ of Array(5)) {
             const newQuestion = makeQuestion()
 
             await inMemoryQuestionsRepository.create(
