@@ -17,11 +17,12 @@ describe('Delete question', () => {
 
     inMemoryQuestionsRepository.create(newQuestion)
 
-    await sut.execute({
+    const result = await sut.execute({
       id: newQuestion.id.toString(),
       authorId: newQuestion.authorId.toString(),
     })
 
+    expect(result.isRight()).toBeTruthy()
     expect(inMemoryQuestionsRepository.Items).toHaveLength(0)
   })
 
@@ -30,11 +31,12 @@ describe('Delete question', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
-    expect(async () => {
-      return await sut.execute({
-        id: newQuestion.id.toString(),
-        authorId: new UniqueEntityId().toString(),
-      })
-    }).rejects.toThrowError(Error)
+    const result = await sut.execute({
+      id: newQuestion.id.toString(),
+      authorId: new UniqueEntityId().toString(),
+    })
+
+    expect(result.isLeft()).toBeTruthy()
+    expect(inMemoryQuestionsRepository.Items).toHaveLength(1)
   })
 })

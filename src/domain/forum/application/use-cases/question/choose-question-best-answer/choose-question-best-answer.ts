@@ -1,15 +1,21 @@
+import { Either, left, right } from '@/core/types/either'
 import { Question } from '../../../../enterprise/entities/question'
 import { AnswersRepository } from '../../../repositories/answers-repository'
 import { QuestionsRepository } from '../../../repositories/questions-repository'
+import { ResourceNotFoundError } from '../../errors/resource-not-found-error'
+import { UnauthorizedError } from '../../errors/unauthorized-error'
 
 interface ChooseQuestionBestAnswerUseCaseRequest {
   answerId: string
   questionAuthorId: string
 }
 
-interface ChooseQuestionBestAnswerUseCaseResponse {
-  question: Question
-}
+type ChooseQuestionBestAnswerUseCaseResponse = Either<
+  ResourceNotFoundError | UnauthorizedError,
+  {
+    question: Question
+  }
+>
 
 export class ChooseQuestionBestAnswerUseCase {
   constructor(
@@ -23,21 +29,21 @@ export class ChooseQuestionBestAnswerUseCase {
   }: ChooseQuestionBestAnswerUseCaseRequest): Promise<ChooseQuestionBestAnswerUseCaseResponse> {
     const answer = await this.answersRepository.findById(answerId)
 
-    if (!answer) throw new Error('Answer not found')
+    if (!answer) return left(new ResourceNotFoundError('Answer not found'))
 
     const question = await this.questionsRepository.findById(
       answer.questionId.toString(),
     )
 
-    if (!question) throw new Error('Question not found')
+    if (!question) return left(new ResourceNotFoundError('Question not found'))
 
     if (questionAuthorId !== question.authorId.toString())
-      throw new Error('Not the question author')
+      return left(new UnauthorizedError('Not the question author'))
 
     question.bestAnswerId = answer.id
 
     this.questionsRepository.update(question)
 
-    return { question }
+    return right({ question })
   }
 }

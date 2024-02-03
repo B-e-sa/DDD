@@ -1,14 +1,20 @@
-import { Answer } from '../../../../enterprise/entities/answer'
+import { Either, left, right } from '@/core/types/either'
+import { Answer } from '@/domain/forum/enterprise/entities/answer'
 import { AnswersRepository } from '../../../repositories/answers-repository'
+import { ResourceNotFoundError } from '../../errors/resource-not-found-error'
+import { UnauthorizedError } from '../../errors/unauthorized-error'
 
 interface DeleteAnswerUseCaseRequest {
   answerId: string
   authorId: string
 }
 
-interface DeleteAnswerUseCaseResponse {
-  answer: Answer
-}
+type DeleteAnswerUseCaseResponse = Either<
+  ResourceNotFoundError | UnauthorizedError,
+  {
+    answer: Answer
+  }
+>
 
 export class DeleteAnswerUseCase {
   constructor(private answerRepository: AnswersRepository) {}
@@ -19,13 +25,13 @@ export class DeleteAnswerUseCase {
   }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse | null> {
     const answer = await this.answerRepository.findById(answerId)
 
-    if (!answer) throw new Error('Answer not found')
+    if (!answer) return left(new ResourceNotFoundError())
 
     if (authorId !== answer.authorId.toString())
-      throw new Error('Not the answer author')
+      return left(new UnauthorizedError())
 
     await this.answerRepository.delete(answer)
 
-    return { answer }
+    return right({ answer })
   }
 }

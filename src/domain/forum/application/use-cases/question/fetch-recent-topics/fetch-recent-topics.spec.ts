@@ -6,35 +6,30 @@ let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 let sut: FetchRecentTopicsUseCase
 
 describe('Fetch recent topics', () => {
-    beforeAll(() => {
-        inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
-        sut = new FetchRecentTopicsUseCase(inMemoryQuestionsRepository)
-    })
+  beforeAll(() => {
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
+    sut = new FetchRecentTopicsUseCase(inMemoryQuestionsRepository)
+  })
 
-    it('can fetch recent questions', async () => {
-        const questionsToMatch = []
+  it('can fetch recent questions', async () => {
+    const questionsToMatch = []
 
-        for (const _ of Array(5)) {
-            const newQuestion = makeQuestion()
+    for (const _ of Array(5)) {
+      const newQuestion = makeQuestion()
 
-            await inMemoryQuestionsRepository.create(
-                newQuestion
-            )
+      await inMemoryQuestionsRepository.create(newQuestion)
 
-            questionsToMatch.push(newQuestion)
-        }
+      questionsToMatch.push(newQuestion)
+    }
 
-        const questions = await inMemoryQuestionsRepository.findManyRecent(1)
+    const questions = await inMemoryQuestionsRepository.findManyRecent(1)
 
-        expect(questions).toEqual(
-            questionsToMatch
-                .sort((a, b) => (
-                    b.createdAt.getTime() - a.createdAt.getTime()
-                ))
-        )
-    })
+    expect(questions).toEqual(
+      questionsToMatch.sort(
+        (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+      ),
+    )
+  })
 
-    it("can paginate fetched questions", async () => {
-
-    })
+  it('can paginate fetched questions', async () => {})
 })
