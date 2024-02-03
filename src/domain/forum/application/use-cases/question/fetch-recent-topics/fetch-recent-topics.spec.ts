@@ -22,9 +22,12 @@ describe('Fetch recent topics', () => {
       questionsToMatch.push(newQuestion)
     }
 
-    const questions = await inMemoryQuestionsRepository.findManyRecent(1)
+    const result = await sut.execute({
+      page: 1,
+    })
 
-    expect(questions).toEqual(
+    expect(result.isRight()).toBeTruthy()
+    expect(result.value?.questions).toEqual(
       questionsToMatch.sort(
         (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
       ),

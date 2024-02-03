@@ -1,5 +1,5 @@
-import { QuestionComment } from "../../enterprise/entities/question-comment";
+import { QuestionComment } from '../../enterprise/entities/question-comment'
 
 export interface QuestionCommentsRepository {
-    create(questionComment: QuestionComment): Promise<QuestionComment>
+  create(questionComment: QuestionComment): Promise<QuestionComment>
 }

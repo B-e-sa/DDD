@@ -34,7 +34,5 @@ export function makeQuestion(
         ...override
     })
 
-    console.log(question.createdAt)
-
     return question
 }

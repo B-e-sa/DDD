@@ -34,3 +34,11 @@ src
 │  ├─ factories       # criação de entidade flexível (SOMENTE para testes)
 │  └─ repositories    # repositórios de teste
 ```
+
+## Subdomínios
+
+- Core (o que resume a aplicação e que não pode parar(ex: subdomínio de compras, pagamentos e entregas))
+  
+- Supporting (da suporte para o funcionamento do core)
+  
+- Generic (necessários, mas não core (ex: promoções, dicas))
