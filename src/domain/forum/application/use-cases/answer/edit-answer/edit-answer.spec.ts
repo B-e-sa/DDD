@@ -25,7 +25,7 @@ describe('edit answer', () => {
     })
 
     expect(result?.isRight()).toBeTruthy()
-    expect(inMemoryAnswersRepository.Items[0]).toMatchObject({
+    expect(inMemoryAnswersRepository.Items[0]).toEqual({
       ...answer,
       content: 'New Content',
     })
