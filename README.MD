@@ -48,3 +48,5 @@ src
 - Agregates (Propriedades que são manipuladas em conjunto)
 
 - Watched Lists (Classe que permite um tracking de quais items foram editados numa lista, de forma a melhorar a performance de métodos como edição e adição )
+
+## PUB / SUB
